@@ -141,3 +141,5 @@ This project is licensed under the MIT License, see the [LICENSE](https://github
 You can support our work on Camelot with a one-time or monthly donation [on OpenCollective](https://opencollective.com/camelot). Organizations who use camelot can also sponsor the project for an acknowledgement on [our documentation site](https://camelot-py.readthedocs.io/en/master/) and this README.
 
 Special thanks to all the users, organizations and contributors that support Camelot!
+
+<img src="https://user-images.githubusercontent.com/408863/66741678-a78ab780-ee93-11e9-8d90-b274af222339.png" align="centre" />
