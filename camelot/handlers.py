@@ -4,8 +4,9 @@ import os
 import sys
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
+from pdfminer.layout import LTTextContainer
 
-from .core import TableList
+from .core import TableList, Page
 from .parsers import Stream, Lattice
 from .utils import (
     TemporaryDirectory,
@@ -160,16 +161,21 @@ class PDFHandler(object):
 
         """
         tables = []
+        out = []
         with TemporaryDirectory() as tempdir:
             for p in self.pages:
                 self._save_page(self.filepath, p, tempdir)
             pages = [
                 os.path.join(tempdir, f"page-{p}.pdf") for p in self.pages
             ]
-            parser = Lattice(**kwargs) if flavor == "lattice" else Stream(**kwargs)
+            # parser = Lattice(**kwargs) if flavor == "lattice" else Stream(**kwargs)
             for p in pages:
+                parser = Lattice(**kwargs) if flavor == "lattice" else Stream(**kwargs)
                 t = parser.extract_tables(
                     p, suppress_stdout=suppress_stdout, layout_kwargs=layout_kwargs
                 )
                 tables.extend(t)
-        return TableList(sorted(tables))
+                # parsers.append(parser)
+                out.append(Page(p, parser, tables))
+        # return TableList(sorted(tables)), parsers
+            return out
